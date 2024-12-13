@@ -17,6 +17,10 @@ class Coach {
     return this.#noEatFood.get(name).includes(food);
   }
 
+  getCoach() {
+    return this.#coach;
+  }
+
   #setNoEatFood(coach, noEatFood) {
     const map = new Map();
 
