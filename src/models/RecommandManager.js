@@ -44,7 +44,6 @@ class RecommandManager {
       recommandResut.push([RecommandManager.KEY[categoryNumber], ...recommandMenu]);
     }
 
-    console.log(this.#recommandedCategory);
     return recommandResut;
   }
 
