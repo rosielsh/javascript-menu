@@ -1,4 +1,5 @@
 import { MissionUtils } from "@woowacourse/mission-utils";
+
 import App from "../src/App.js";
 
 const mockQuestions = (inputs) => {
@@ -7,27 +8,22 @@ const mockQuestions = (inputs) => {
   MissionUtils.Console.readLineAsync.mockImplementation(() => {
     const input = inputs.shift();
 
-    if (input === undefined) {
-      throw new Error("NO INPUT");
-    }
-
     return Promise.resolve(input);
   });
 };
-
 const mockRandoms = (numbers) => {
   MissionUtils.Random.pickNumberInRange = jest.fn();
-  numbers.reduce((acc, number) => {
-    return acc.mockReturnValueOnce(number);
-  }, MissionUtils.Random.pickNumberInRange);
+  numbers.reduce((acc, number) => acc.mockReturnValueOnce(number), MissionUtils.Random.pickNumberInRange);
 };
 
 const mockShuffles = (rows) => {
   MissionUtils.Random.shuffle = jest.fn();
 
-  rows.reduce((acc, [firstNumber, numbers]) => {
-    return acc.mockReturnValueOnce([firstNumber, ...numbers.filter((number) => number !== firstNumber)]);
-  }, MissionUtils.Random.shuffle);
+  rows.reduce(
+    (acc, [firstNumber, numbers]) =>
+      acc.mockReturnValueOnce([firstNumber, ...numbers.filter((number) => number !== firstNumber)]),
+    MissionUtils.Random.shuffle
+  );
 };
 
 const getLogSpy = () => {
@@ -35,9 +31,7 @@ const getLogSpy = () => {
   return logSpy;
 };
 
-const getOutput = (logSpy) => {
-  return [...logSpy.mock.calls].join("");
-};
+const getOutput = (logSpy) => [...logSpy.mock.calls].join("");
 
 const expectLogContains = (received, logs) => {
   logs.forEach((log) => {
@@ -66,7 +60,7 @@ describe("점심 메뉴 테스트", () => {
         [4, Array.from({ length: 9 }, sequenced)],
         [2, Array.from({ length: 9 }, sequenced)],
 
-        //제임스
+        // 제임스
         [9, Array.from({ length: 9 }, sequenced)],
         [1, Array.from({ length: 9 }, sequenced)],
         [5, Array.from({ length: 9 }, sequenced)],

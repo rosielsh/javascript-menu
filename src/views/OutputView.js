@@ -1,49 +1,22 @@
 import { Console } from "@woowacourse/mission-utils";
 
 class OutputView {
+  static printStart() {
+    Console.print("점심 메뉴 추천을 시작합니다.\n\n");
+  }
+
   static printError(message) {
     Console.print(message);
     this.#printEmptyLine();
   }
 
-  static printResult(coaches, recommandResult) {
+  static printResult(coaches, categories, recommandResult) {
     Console.print("\n메뉴 추천 결과입니다.");
     Console.print("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
-
-    const categories = this.#getCategories(recommandResult);
-    const menu = this.#getMenus(recommandResult);
-
-    this.#printFinalResult(categories, coaches, menu);
-  }
-
-  static #getMenus(recommandResult) {
-    const menu = [];
-
-    for (let col = 1; col < recommandResult[0].length; col++) {
-      const coachMenu = [];
-      for (let row = 0; row < recommandResult.length; row++) {
-        coachMenu.push(recommandResult[row][col]);
-      }
-      menu.push(coachMenu);
-    }
-
-    return menu;
-  }
-
-  static #getCategories(recommandResult) {
-    const categories = [];
-    for (let row = 0; row < recommandResult.length; row++) {
-      categories.push(recommandResult[row][0]);
-    }
-
-    return categories;
-  }
-
-  static #printFinalResult(categories, coaches, menu) {
     Console.print(`[ 카테고리 | ${categories.join(" | ")} ]`);
 
-    for (let i = 0; i < coaches.length; i++) {
-      Console.print(`[ ${coaches[i]} | ${menu[i].join(" | ")} ]`);
+    for (let i = 0; i < recommandResult.length; i++) {
+      Console.print(`[ ${coaches[i]} | ${recommandResult[i].join(" | ")} ]`);
     }
 
     Console.print("\n추천을 완료했습니다.");

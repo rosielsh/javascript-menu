@@ -25,37 +25,43 @@ class RecommandManager {
     const recommandResut = [];
     const coaches = this.#coach.getCoach();
 
+    const categories = [];
+
     for (let day = 0; day < 5; day++) {
-      recommandResut.push(this.#getRecommandResult(coaches));
+      const categoryNumber = this.#getCategoryNumber();
+      this.#recommandedCategory[categoryNumber - 1] += 1;
+      categories.push(RecommandManager.KEY[categoryNumber]);
     }
 
-    return recommandResut;
+    for (let coach of coaches) {
+      recommandResut.push(this.#getRecommandResult(coach, categories));
+    }
+
+    return [categories, recommandResut];
   }
 
-  #getRecommandResult(coaches) {
-    const categoryNumber = this.#getCategoryNumber();
-    const category = RecommandManager.KEY[categoryNumber];
+  #getRecommandResult(coach, categories) {
     const recommandMenu = [];
 
-    coaches.forEach((coach) => {
+    categories.forEach((category) => {
       const menu = this.#getMenu(coach, MENU[category]);
       recommandMenu.push(menu);
       this.#recommandedMenuPerCoach.get(coach).add(menu);
     });
 
-    this.#recommandedCategory[categoryNumber - 1] += 1;
-    return [category, ...recommandMenu];
+    return recommandMenu;
   }
 
   #getMenu(coach, menus) {
     let menu = null;
 
     while (menu === null) {
-      const arr = Array.from({ length: menus.length }, (_, idx) => idx);
+      const arr = Array.from({ length: menus.length }, (_, idx) => idx + 1);
       const menuNum = MenuRecommandStrategy.generate(arr);
-      const recommandMenu = menus[menuNum];
+      const recommandMenu = menus[menuNum - 1];
       if (this.#isPossibleMenu(coach, recommandMenu) && this.#noRecommandMenu(coach, recommandMenu)) {
         menu = recommandMenu;
+        break;
       }
     }
 
@@ -75,6 +81,7 @@ class RecommandManager {
       const recommandCategory = CategoryRecommandStrategy.generate();
       if (this.#isPossibleCategory(recommandCategory)) {
         categoryNumber = recommandCategory;
+        break;
       }
     }
 

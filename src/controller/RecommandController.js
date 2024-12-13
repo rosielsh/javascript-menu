@@ -14,6 +14,7 @@ class RecommandController {
   }
 
   async recommand() {
+    this.#outputView.printStart();
     const coachInput = await InputHandler.repeatUntilValidInput(() => this.#getCoach());
     const noEatFood = [];
 
@@ -23,8 +24,8 @@ class RecommandController {
 
     const coach = new Coach(coachInput, noEatFood);
     const manager = new RecommandManager(coach);
-    const recommandResult = manager.recommandMenu();
-    this.#outputView.printResult(coachInput, recommandResult);
+    const [categories, recommandResult] = manager.recommandMenu();
+    this.#outputView.printResult(coachInput, categories, recommandResult);
   }
 
   async #getCoach() {
