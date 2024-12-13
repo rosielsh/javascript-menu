@@ -1,6 +1,6 @@
-import { MENU } from "../constants/Menu";
-import CategoryRecommandStrategy from "./CategoryRecommandStrategy";
-import MenuRecommandStrategy from "./MenuRecommandStrategy";
+import { MENU } from "../constants/Menu.js";
+import CategoryRecommandStrategy from "./CategoryRecommandStrategy.js";
+import MenuRecommandStrategy from "./MenuRecommandStrategy.js";
 
 class RecommandManager {
   static KEY = {
