@@ -10,22 +10,36 @@ class OutputView {
     Console.print("\n메뉴 추천 결과입니다.");
     Console.print("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
 
-    const categories = [];
-    const menu = [];
+    const categories = this.#getCategories(recommandResult);
+    const menu = this.#getMenus(recommandResult);
 
-    for (let row = 0; row < recommandResult.length; row++) {
-      categories.push(recommandResult[row][0]);
-    }
+    this.#printFinalResult(categories, coaches, menu);
+  }
+
+  static #getMenus(recommandResult) {
+    const menu = [];
 
     for (let col = 1; col < recommandResult[0].length; col++) {
       const coachMenu = [];
       for (let row = 0; row < recommandResult.length; row++) {
         coachMenu.push(recommandResult[row][col]);
       }
-
       menu.push(coachMenu);
     }
 
+    return menu;
+  }
+
+  static #getCategories(recommandResult) {
+    const categories = [];
+    for (let row = 0; row < recommandResult.length; row++) {
+      categories.push(recommandResult[row][0]);
+    }
+
+    return categories;
+  }
+
+  static #printFinalResult(categories, coaches, menu) {
     Console.print(`[ 카테고리 | ${categories.join(" | ")} ]`);
 
     for (let i = 0; i < coaches.length; i++) {
