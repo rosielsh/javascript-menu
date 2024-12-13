@@ -6,8 +6,19 @@ const SAMPLE = {
   양식: "라자냐, 그라탱, 뇨끼, 끼슈, 프렌치 토스트, 바게트, 스파게티, 피자, 파니니",
 };
 
+import RecommandController from "./controller/RecommandController.js";
+import InputView from "./views/InputView.js";
+import OutputView from "./views/OutputView.js";
+
 class App {
-  play() {}
+  async play() {
+    const views = {
+      inputView: InputView,
+      outputView: OutputView,
+    };
+
+    await new RecommandController(views).recommand();
+  }
 }
 
 export default App;
