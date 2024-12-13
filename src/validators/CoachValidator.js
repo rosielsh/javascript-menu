@@ -1,10 +1,14 @@
-import { generateError } from "../utils/generateError";
+import { generateError } from "../utils/generateError.js";
 
 class CoachValidator {
   static validateCoach(names) {
     this.#validateInvalidValue(names);
     this.#validateLength(names);
     this.#validateCount(names);
+  }
+
+  static validateFood(foods) {
+    this.#validateFoodLength(foods);
   }
 
   static #validateInvalidValue(names) {
@@ -24,6 +28,12 @@ class CoachValidator {
   static #validateCount(names) {
     if (names.length < 2 || names.length > 5) {
       generateError("코치는 최소 2명, 최대 5명까지 식사를 함께할 수 있습니다.");
+    }
+  }
+
+  static #validateFoodLength(foods) {
+    if (foods.some((food) => food.length > 2)) {
+      generateError("못 먹는 음식은 최대 2개입니다.");
     }
   }
 }
