@@ -51,7 +51,9 @@ class RecommandManager {
     let menu = null;
 
     while (menu === null) {
-      const recommandMenu = MenuRecommandStrategy.generate(menus);
+      const arr = Array.from({ length: menus.length }, (_, idx) => idx);
+      const menuNum = MenuRecommandStrategy.generate(arr);
+      const recommandMenu = menus[menuNum];
       if (this.#isPossibleMenu(coach, recommandMenu) && this.#noRecommandMenu(coach, recommandMenu)) {
         menu = recommandMenu;
       }
