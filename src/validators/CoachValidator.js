@@ -32,7 +32,7 @@ class CoachValidator {
   }
 
   static #validateFoodLength(foods) {
-    if (foods.some((food) => food.length > 2)) {
+    if (foods.length > 2) {
       generateError("못 먹는 음식은 최대 2개입니다.");
     }
   }
