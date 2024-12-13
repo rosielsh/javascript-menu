@@ -20,4 +20,16 @@ describe("CoachValidator 클래스 테스트", () => {
       expect(() => CoachValidator.validateCoach(name)).toThrow("[ERROR]");
     });
   });
+
+  test("각 코치는 최소 0개, 최대 2개의 못 먹는 메뉴가 있다", () => {
+    const noEatFood = [["우동", "스시"], ["뇨끼", "월남쌈"], []];
+
+    expect(() => CoachValidator.validateFood(noEatFood)).not.toThrow();
+  });
+
+  test("2개 이상의 메뉴를 입력하면 에러가 발생한다", () => {
+    const noEatFood = [["우동", "스시", "떡볶이"], ["뇨끼", "월남쌈"], ["마파두부"]];
+
+    expect(() => CoachValidator.validateFood(noEatFood)).toThrow("[ERROR]");
+  });
 });
