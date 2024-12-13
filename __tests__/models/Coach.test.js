@@ -1,3 +1,5 @@
+import Coach from "../../src/models/Coach.js";
+
 describe("Coach 클래스 테스트", () => {
   test("코치가 못 먹는 음식인지 확인할 수 있다.", () => {
     const coachInput = ["토미", "제임스", "포코"];
