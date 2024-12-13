@@ -23,9 +23,7 @@ class RecommandController {
 
     const coach = new Coach(coachInput, noEatFood);
     const manager = new RecommandManager(coach);
-
     const recommandResult = manager.recommandMenu();
-
     this.#outputView.printResult(coachInput, recommandResult);
   }
 

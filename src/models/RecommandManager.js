@@ -25,26 +25,26 @@ class RecommandManager {
     const recommandResut = [];
     const coaches = this.#coach.getCoach();
 
-    // 월~금
     for (let day = 0; day < 5; day++) {
-      const categoryNumber = this.#getCategoryNumber();
-      const menus = MENU[RecommandManager.KEY[categoryNumber]];
-
-      const recommandMenu = [];
-
-      for (let coach of coaches) {
-        const menu = this.#getMenu(coach, menus);
-        recommandMenu.push(menu);
-
-        const set = this.#recommandedMenuPerCoach.get(coach);
-        set.add(menu);
-      }
-
-      this.#recommandedCategory[categoryNumber - 1] += 1;
-      recommandResut.push([RecommandManager.KEY[categoryNumber], ...recommandMenu]);
+      recommandResut.push(this.#getRecommandResult(coaches));
     }
 
     return recommandResut;
+  }
+
+  #getRecommandResult(coaches) {
+    const categoryNumber = this.#getCategoryNumber();
+    const category = RecommandManager.KEY[categoryNumber];
+    const recommandMenu = [];
+
+    coaches.forEach((coach) => {
+      const menu = this.#getMenu(coach, MENU[category]);
+      recommandMenu.push(menu);
+      this.#recommandedMenuPerCoach.get(coach).add(menu);
+    });
+
+    this.#recommandedCategory[categoryNumber - 1] += 1;
+    return [category, ...recommandMenu];
   }
 
   #getMenu(coach, menus) {
